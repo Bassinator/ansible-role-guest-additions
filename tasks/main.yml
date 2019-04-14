@@ -9,6 +9,8 @@
   when: virtualbox_version is not defined
   changed_when: false
 
+- debug: var=cat_virtualbox_version_file
+
 - name: set virtualbox from version_file
   set_fact:
     virtualbox_version: '{{cat_virtualbox_version_file.stdout}}'

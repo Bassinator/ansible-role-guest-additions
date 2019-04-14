@@ -1,0 +1,20 @@
+---
+- name: Prepare
+  hosts: all
+
+  tasks:
+  - name: add user
+    user:
+      name: 'vagrant'
+
+  # - name: Set VirtualBox version.
+  #   lineinfile:
+  #     path: /home/vagrant/.vbox_version
+  #     line: 6.0.4
+  #     create: true
+
+  - name: Set VirtualBox version
+    copy:
+      content: "6.0.4"
+      dest: /home/vagrant/.vbox_version
+      force: true

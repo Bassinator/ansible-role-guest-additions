@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  role_name: vbox_additions
+  role_name: guest_additions
   author: Bassinator
   description: your description
   company: your company (optional)

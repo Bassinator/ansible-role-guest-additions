@@ -14,7 +14,7 @@
 - name: set virtualbox from version_file
   set_fact:
     virtualbox_version: '{{cat_virtualbox_version_file.stdout}}'
-  when: cat_virtualbox_version_file is defined
+  when: not cat_virtualbox_version_file.skipped
 
 - debug: var=virtualbox_version
 

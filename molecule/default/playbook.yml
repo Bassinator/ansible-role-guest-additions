@@ -3,4 +3,4 @@
   hosts: all
   become: true
   roles:
-    - role: bassinator.vbox-additions
+    - role: bassinator.guest_additions

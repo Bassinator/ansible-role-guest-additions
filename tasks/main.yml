@@ -2,11 +2,17 @@
 - include_tasks: debian.yml
   when: ansible_os_family == "Debian"
 
+# packer stores virtualbox version in this file
 - name: Get VirtualBox version
   command: cat /home/{{ installation_os_user }}/.vbox_version
-  register: virtualbox_version
+  register: cat_virtualbox_version_file
   when: virtualbox_version is not defined
   changed_when: false
+
+- name: set virtualbox from version_file
+  set_fact:
+    virtualbox_version: '{{cat_virtualbox_version_file.stdout}}'
+  when: cat_virtualbox_version_file is defined
 
 - debug: var=virtualbox_version
 
@@ -31,18 +37,18 @@
     msg: "skipping installation, matching verion already installed"
   when:
     - guest_additions_version.stdout is defined
-    - guest_additions_version.stdout is search(virtualbox_version.stdout)
+    - guest_additions_version.stdout is search(virtualbox_version)
 
 
 - name: install guest guest additions
   block:
     - name: download guest additions iso
       get_url:
-        url: 'https://download.virtualbox.org/virtualbox/
-          {{ virtualbox_version.stdout }}/
-          VBoxGuestAdditions_{{ virtualbox_version.stdout }}.iso'
-        dest: '/home/{{ installation_os_user }}/
-          VBoxGuestAdditions_{{ virtualbox_version.stdout }}.iso'
+        url: "https://download.virtualbox.org/virtualbox/\
+          {{ virtualbox_version }}/\
+          VBoxGuestAdditions_{{ virtualbox_version }}.iso"
+        dest: "/home/{{ installation_os_user }}/\
+          VBoxGuestAdditions_{{ virtualbox_version }}.iso"
 
     - name: Create mountpoint for vbox guest additions iso
       file:
@@ -52,8 +58,8 @@
     - name: Mount VirtualBox guest additions ISO.
       mount:
         path: /mnt/vbox/
-        src: '/home/{{ installation_os_user }}/
-          VBoxGuestAdditions_{{ virtualbox_version.stdout }}.iso'
+        src: "/home/{{ installation_os_user }}/\
+          VBoxGuestAdditions_{{ virtualbox_version }}.iso"
         opts: loop,ro,noauto
         state: mounted
         fstype: iso9660
@@ -66,15 +72,15 @@
       mount:
         name: /mnt/vbox
         src: '/home/{{ installation_os_user }}/
-          VBoxGuestAdditions_{{ virtualbox_version.stdout }}.iso'
+          VBoxGuestAdditions_{{ virtualbox_version }}.iso'
         state: absent
         fstype: iso9660
 
     - name: Delete VirtualBox guest additions ISO.
       file:
         path: "/home/{{ installation_os_user }}/
-          VBoxGuestAdditions_{{ virtualbox_version.stdout }}.iso"
+          VBoxGuestAdditions_{{ virtualbox_version }}.iso"
         state: absent
   when:
     - not guest_additions_version.stdout is defined or
-      not guest_additions_version.stdout is search(virtualbox_version.stdout)
+      not guest_additions_version.stdout is search(virtualbox_version)

@@ -28,7 +28,7 @@
 - debug: var=guest_additions_version
 
 - debug:
-    msg: "skipping guest addition installation, matching verion already installed"
+    msg: "skipping installation, matching verion already installed"
   when:
     - guest_additions_version.stdout is defined
     - guest_additions_version.stdout is search(virtualbox_version.stdout)
@@ -38,8 +38,11 @@
   block:
     - name: download guest additions iso
       get_url:
-        url: https://download.virtualbox.org/virtualbox/{{ virtualbox_version.stdout }}/VBoxGuestAdditions_{{ virtualbox_version.stdout }}.iso
-        dest: '/home/{{ installation_os_user }}/VBoxGuestAdditions_{{ virtualbox_version.stdout }}.iso'
+        url: 'https://download.virtualbox.org/virtualbox/
+          {{ virtualbox_version.stdout }}/
+          VBoxGuestAdditions_{{ virtualbox_version.stdout }}.iso'
+        dest: '/home/{{ installation_os_user }}/
+          VBoxGuestAdditions_{{ virtualbox_version.stdout }}.iso'
 
     - name: Create mountpoint for vbox guest additions iso
       file:
@@ -49,7 +52,8 @@
     - name: Mount VirtualBox guest additions ISO.
       mount:
         path: /mnt/vbox/
-        src: '/home/{{ installation_os_user }}/VBoxGuestAdditions_{{ virtualbox_version.stdout }}.iso'
+        src: '/home/{{ installation_os_user }}/
+          VBoxGuestAdditions_{{ virtualbox_version.stdout }}.iso'
         opts: loop,ro,noauto
         state: mounted
         fstype: iso9660
@@ -61,13 +65,16 @@
     - name: Unmount VirtualBox guest additions ISO.
       mount:
         name: /mnt/vbox
-        src: '/home/{{ installation_os_user }}/VBoxGuestAdditions_{{ virtualbox_version.stdout }}.iso'
+        src: '/home/{{ installation_os_user }}/
+          VBoxGuestAdditions_{{ virtualbox_version.stdout }}.iso'
         state: absent
         fstype: iso9660
 
     - name: Delete VirtualBox guest additions ISO.
       file:
-        path: "/home/{{ installation_os_user }}/VBoxGuestAdditions_{{ virtualbox_version.stdout }}.iso"
+        path: "/home/{{ installation_os_user }}/
+          VBoxGuestAdditions_{{ virtualbox_version.stdout }}.iso"
         state: absent
   when:
-    - not guest_additions_version.stdout is defined or not guest_additions_version.stdout is search(virtualbox_version.stdout)
+    - not guest_additions_version.stdout is defined or
+      not guest_additions_version.stdout is search(virtualbox_version.stdout)

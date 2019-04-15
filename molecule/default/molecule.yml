@@ -10,6 +10,8 @@ lint:
 platforms:
   - name: instance
     box: geerlingguy/debian9
+  - name: instance
+    box: geerlingguy/centos7
 provisioner:
   name: ansible
   lint:

@@ -1,0 +1,9 @@
+---
+- name: install prerequisites
+  yum:
+    name:
+      - libx11
+      - libXrandr
+      - libXt
+      - libXmu
+    state: present

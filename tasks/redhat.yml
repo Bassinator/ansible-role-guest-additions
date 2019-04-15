@@ -2,7 +2,7 @@
 - name: install prerequisites
   yum:
     name:
-      - libx11
+      - libX11
       - libXrandr
       - libXt
       - libXmu

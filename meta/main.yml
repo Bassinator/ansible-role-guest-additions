@@ -11,10 +11,10 @@ galaxy_info:
 
 
   platforms:
-    - name: debian
+    - name: Debian
       versions:
         - stretch
-    - name: centos
+    - name: CentOS
       versions:
         - 7
 

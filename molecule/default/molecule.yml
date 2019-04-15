@@ -8,8 +8,8 @@ driver:
 lint:
   name: yamllint
 platforms:
-  # - name: instance-1
-  #   box: geerlingguy/debian9
+  - name: instance-1
+    box: geerlingguy/debian9
   - name: instance-2
     box: geerlingguy/centos7
 provisioner:

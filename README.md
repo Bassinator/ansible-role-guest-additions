@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/Bassinator/ansible-role-guest-additions.svg?branch=master)](https://travis-ci.com/Bassinator/ansible-role-guest-additions)
 
-archives all updated files with a given fileextension to an archive folder
+Installs virtualbox guest additions matching virtualbox version.
 
 ## Requirements
 
@@ -13,7 +13,6 @@ None.
 Available variables are listed below, along with default values:
 
     installation_os_user: vagrant
-    installation_os_group: vagrant
 
 ## Dependencies
 

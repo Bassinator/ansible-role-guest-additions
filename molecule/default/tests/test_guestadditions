@@ -1,0 +1,7 @@
+---
+command:
+  check_version:
+    exec: VBoxClient --version
+    exit-status: 0
+        stdout:
+    - "/^6\\.0\\.4/.*"

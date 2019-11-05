@@ -2,8 +2,12 @@
 - name: install prerequisites
   apt:
     name:
-      - libx11-6
-      - libxrandr2
-      - libxt6
-      - libxmu6
+      - libx11-6:i386
+      - libxrandr2:i386
+      - libxt6:i386
+      - libxmu6:i386
+      - libx11-6:amd64
+      - libxrandr2:amd64
+      - libxt6:amd64
+      - libxmu6:amd64
     state: present

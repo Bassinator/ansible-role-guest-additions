@@ -4,6 +4,10 @@
 
 Installs virtualbox guest additions matching virtualbox version.
 
+
+## TODO
+as a workaround actually on debian systems 32bit and 64bit prerequisites are installed. Change this with a check and pick the right version.
+
 ## Requirements
 
 None.

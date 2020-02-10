@@ -1,7 +1,9 @@
 ---
 
-language: python
-services: docker
+language: bash
+
+script:
+  - echo nothing to do
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

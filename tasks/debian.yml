@@ -1,14 +1,9 @@
 ---
-- name: get linux architecture
-  command: arch
-  register: _arch
-  changed_when: false
-
 - name: install prerequisites
   apt:
     name:
-      - libx11-6:{{ arch[_arch.stdout] }}
-      - libxrandr2:{{ arch[_arch.stdout] }}
-      - libxt6:{{ arch[_arch.stdout] }}
-      - libxmu6:{{ arch[_arch.stdout] }}
+      - libx11-6
+      - libxrandr2
+      - libxt6
+      - libxmu6
     state: present

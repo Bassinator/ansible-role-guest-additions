@@ -70,7 +70,7 @@
         fstype: iso9660
 
     - name: Run VirtualBox guest additions installation.
-      command: '/mnt/vbox/VBoxLinuxAdditions.run --nox11'
+      command: 'yes | /mnt/vbox/VBoxLinuxAdditions.run --nox11'
       failed_when: false
 
     - name: Unmount VirtualBox guest additions ISO.
